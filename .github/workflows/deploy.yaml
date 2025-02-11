@@ -1,4 +1,4 @@
-name: Deploy CD Pipeline
+name: Deploy CD Pipelin
 
 on:
     push:
