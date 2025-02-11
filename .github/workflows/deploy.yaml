@@ -20,5 +20,5 @@ jobs:
                 git pull origin main
                 sudo docker stop fastapi-app || true && sudo docker rm fastapi-app || true
                 sudo docker build -t fastapi-app .
-                sudo docker run --name fastapi-app -p 8000:8000 fastapi-app
+                sudo docker run --name fastapi-app -dp 8000:8000 fastapi-app
                 sudo nginx -s reload
