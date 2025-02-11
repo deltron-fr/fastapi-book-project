@@ -1,0 +1,24 @@
+name: Deploy CD Pipeline
+
+on:
+    push:
+        branches: ['main']
+
+jobs:
+    deploy:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Connect to Virtual Machine using SSH and deploy the application
+          uses: appleboy/ssh-action@v1.2.0
+          with:
+            host: ${{ secrets.HOST }}
+            username: ${{ secrets.USERNAME }}
+            key: ${{ secrets.KEY }}
+            port: ${{ secrets.PORT }}
+            script: |
+                cd ./fastapi
+                git pull origin main
+                docker stop fastapi-app || true && docker rm fastapi-app || true
+                docker build -t fastapi-app .
+                docker run -p --name fastapi-app 8000:8000 fastapi-app
+                sudo nginx -s reload
