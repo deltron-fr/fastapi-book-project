@@ -18,7 +18,7 @@ jobs:
             script: |
                 cd ./fastapi
                 git pull origin main
-                docker stop fastapi-app || true && docker rm fastapi-app || true
-                docker build -t fastapi-app .
-                docker run -p --name fastapi-app 8000:8000 fastapi-app
+                sudo docker stop fastapi-app || true && sudo docker rm fastapi-app || true
+                sudo docker build -t fastapi-app .
+                sudo docker run --name fastapi-app -p 8000:8000 fastapi-app
                 sudo nginx -s reload
